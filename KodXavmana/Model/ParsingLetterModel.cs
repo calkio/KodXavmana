@@ -30,14 +30,14 @@ namespace KodXavmana.model
                 totalLetters++;
             }
 
-            Dictionary<char, double> letterProbabilities = new Dictionary<char, double>();
+            Dictionary<char, double> frequencyTable = new Dictionary<char, double>();
             foreach (var kvp in letterCounts)
             {
                 double probability = kvp.Value / totalLetters;
-                letterProbabilities[kvp.Key] = probability;
+                frequencyTable[kvp.Key] = probability;
             }
 
-            return letterProbabilities;
+            return frequencyTable;
         }
     }
 }

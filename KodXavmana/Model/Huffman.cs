@@ -1,0 +1,70 @@
+﻿using KodXavmana.Infastructure;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Xml.Linq;
+
+namespace KodXavmana.Model
+{
+    internal class Huffman
+    {
+        private static List<Node> _nodes = new();
+        private static Node _root;
+        private static Dictionary<char, string> _codeTable = new();
+        private static Dictionary<char, double> _frequencyTable = new();
+        public Dictionary<char, string> CodeTable { get { return _codeTable; } }
+
+
+        public Huffman(Dictionary<char, double> frequencyTable)
+        {
+            _frequencyTable = frequencyTable;
+            Node root = BuildHuffmanTree();
+            TraverseTree(root, "");
+        }
+
+        // Создаем список узлов для каждого символа и его частоты
+        private static void BuildNodeList()
+        {
+            foreach (var item in _frequencyTable)
+            {
+                _nodes.Add(new Node { Character = item.Key, Frequency = item.Value });
+            }
+        }
+
+        // Рекурсивно обходим дерево и строим таблицу кодов
+        private static void TraverseTree(Node node, string code)
+        {
+            if (node.Left == null && node.Right == null)
+            {
+                _codeTable[node.Character] = code;
+            }
+            else
+            {
+                TraverseTree(node.Left, code + "0");
+                TraverseTree(node.Right, code + "1");
+            }
+        }
+
+
+        // Строим дерево Хаффмана
+        private Node BuildHuffmanTree()
+        {
+            BuildNodeList();
+
+            while (_nodes.Count > 1)
+            {
+                _nodes.Sort((x, y) => x.Frequency.CompareTo(y.Frequency));
+
+                Node left = _nodes[0];
+                Node right = _nodes[1];
+                Node parent = new Node { Character = ' ', Frequency = left.Frequency + right.Frequency, Left = left, Right = right };
+
+                _nodes.RemoveRange(0, 2);
+                _nodes.Add(parent);
+            }
+            return _nodes[0];
+        }
+    }
+}
