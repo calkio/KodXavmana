@@ -31,7 +31,7 @@
                        Content="Введите строку:"/>
                 <TextBox TextWrapping="Wrap" 
                          FontSize="16" Height="110"
-                         Text="{Binding InputText}"/>
+                         Text="{Binding InputText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
@@ -43,7 +43,8 @@
                         Height="35" Width="120"
                         Content="Создание таблицы"
                         HorizontalAlignment="Right"
-                        Margin="0 0 20 0"/>
+                        Margin="0 0 20 0"
+                        Command="{Binding GetTableLetterProbabilitiesCommand}"/>
                 <Button Grid.Column="1" 
                         Height="35" Width="120"
                         Content="Кодирование"
@@ -62,7 +63,8 @@
             </StackPanel>
         </Grid>
         
-        <StackPanel Grid.RowSpan="2" Grid.Column="1">
+        <StackPanel Grid.RowSpan="2" Grid.Column="1"
+                    Margin="10">
             <Label FontSize="16" FontWeight="Bold"
                    Content="Вероятность букв"/>
             <TextBox FontSize="16"
