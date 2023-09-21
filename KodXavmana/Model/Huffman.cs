@@ -10,40 +10,49 @@ namespace KodXavmana.Model
 {
     internal class Huffman
     {
-        private static List<Node> _nodes = new();
-        private static Node _root;
-        private static Dictionary<char, string> _codeTable = new();
-        private static Dictionary<char, double> _frequencyTable = new();
-        public Dictionary<char, string> CodeTable { get { return _codeTable; } }
+        private List<Node> _nodes = new();
+        private Node _root;
+        private Dictionary<char, string> _codeTable = new();
+        private Dictionary<char, double> _frequencyTable = new();
+        public Dictionary<char, string> CodeTable { get => _codeTable; }
+
+        private double _hx;
+        public double Hx { get => _hx; }
+
+        private double _redundancy;
+        public double Redundancy { get => _redundancy; }
+
 
 
         public Huffman(Dictionary<char, double> frequencyTable)
         {
             _frequencyTable = frequencyTable;
             Node root = BuildHuffmanTree();
-            TraverseTree(root, "");
+            TraverseTree(this, root, "");
+            _hx = GetHx();
+            _redundancy = 1 - _hx / GetHmax();
         }
 
         // Создаем список узлов для каждого символа и его частоты
-        private static void BuildNodeList()
+        private static void BuildNodeList(Huffman huffman)
         {
-            foreach (var item in _frequencyTable)
+            foreach (var item in huffman._frequencyTable)
             {
-                _nodes.Add(new Node { Character = item.Key, Frequency = item.Value });
+                huffman._nodes.Add(new Node { Character = item.Key, Frequency = item.Value });
             }
         }
 
         // Рекурсивно обходим дерево и строим таблицу кодов
-        private static void TraverseTree(Node node, string code)
+        private static void TraverseTree(Huffman huffman, Node node, string code)
         {
             if (node.Left == null && node.Right == null)
             {
-                _codeTable[node.Character] = code;
+                huffman._codeTable[node.Character] = code;
             }
             else
             {
-                TraverseTree(node.Left, code + "0");
-                TraverseTree(node.Right, code + "1");
+                TraverseTree(huffman, node.Left, code + "0");
+                TraverseTree(huffman, node.Right, code + "1");
             }
         }
 
@@ -51,7 +60,7 @@ namespace KodXavmana.Model
         // Строим дерево Хаффмана
         private Node BuildHuffmanTree()
         {
-            BuildNodeList();
+            BuildNodeList(this);
 
             while (_nodes.Count > 1)
             {
@@ -65,6 +74,21 @@ namespace KodXavmana.Model
                 _nodes.Add(parent);
             }
             return _nodes[0];
+        }
+
+        private double GetHx()
+        {
+            double sum = 0;
+            foreach (var x in _frequencyTable)
+            {
+                sum += x.Value * Math.Log2(x.Value);
+            }
+            return -sum;
+        }
+
+        private double GetHmax()
+        {
+            return Math.Log2(_frequencyTable.Count);
         }
     }
 }

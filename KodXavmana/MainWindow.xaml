@@ -12,8 +12,8 @@
     </Window.DataContext>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="60*"/>
+            <RowDefinition Height="40*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="75*"/>
@@ -35,21 +35,36 @@
             </StackPanel>
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
+                    <ColumnDefinition Width="200"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
 
                 <Button Grid.Column="0" 
                         Height="35" Width="120"
                         Content="Создание таблицы"
-                        HorizontalAlignment="Right"
-                        Margin="0 0 20 0"
                         Command="{Binding GetTableLetterProbabilitiesCommand}"/>
-                <Button Grid.Column="1" 
-                        Height="35" Width="120"
-                        Content="Кодирование"
-                        HorizontalAlignment="Left"
-                        Margin="20 0 0 0"/>
+
+                <Grid Grid.Column="1" Margin="10 0 10 0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0"
+                                Orientation="Horizontal">
+                        <Label Content="H(x):"
+                               VerticalAlignment="Center"/>
+                        <TextBox Height="25" Width="300"
+                                 Text="{Binding Hx}"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="1"
+                                Orientation="Horizontal">
+                        <Label Content="Изб:"
+                               VerticalAlignment="Center"/>
+                        <TextBox Height="25" Width="300"
+                                 Text="{Binding Redundancy}"/>
+                    </StackPanel>
+                </Grid>
             </Grid>
         </Grid>
 

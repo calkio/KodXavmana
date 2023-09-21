@@ -31,6 +31,14 @@ namespace KodXavmana.ViewModel
 
         public string TableLetter { get => _tableLetter; set => Set(ref _tableLetter, value); }
 
+        private string _hx;
+
+        public string Hx { get => _hx; set => Set(ref _hx, value); }
+
+        private string _redundancy;
+
+        public string Redundancy { get => _redundancy; set => Set(ref _redundancy, value); }
+
 
         #endregion
 
@@ -48,15 +56,18 @@ namespace KodXavmana.ViewModel
         {
             var dict = ParsingLetterModel.CalculateLetterProbabilities(_inputText);
             Huffman huffman = new Huffman(dict);
-
-            // Все работает, только в словаре один раз попадается буква, а в тексте может несколько раз, поэтому нужно
-            // перебрать строку и проверить в ней символы и брать уже значения из словаря
             StringBuilder stringBuilder = new StringBuilder();
-            foreach (var item in huffman.CodeTable)
+            foreach (char c in _inputText)
             {
-                stringBuilder.Append(item.Value);
+                if (huffman.CodeTable.ContainsKey(c))
+                {
+                    stringBuilder.Append(huffman.CodeTable[c]);
+                }
             }
+
             OutputText = stringBuilder.ToString();
+            Hx = huffman.Hx.ToString();
+            Redundancy = huffman.Redundancy.ToString();
 
             TableLetter = string.Join(Environment.NewLine, dict.Select(kv => $"{kv.Key} - {Math.Round(kv.Value, 2)}"));
         } 
