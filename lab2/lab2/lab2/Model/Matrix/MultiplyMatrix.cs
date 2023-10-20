@@ -10,7 +10,7 @@ namespace lab2.Model.Matrix
     {
         public int[] GetMultiplicationMatrix(int[] matrix1, int[,] matrix2)
         {
-            int[] result = new int[matrix2.GetLength(1)];
+            int[] result = new int[matrix2.GetLength(0)];
 
             for (int i = 0; i < matrix2.GetLength(1); i++)
             {
@@ -26,16 +26,16 @@ namespace lab2.Model.Matrix
             return result;
         }
 
-        public int[] GetGetMultiplicationMatrixTransp(int[] matrix1, int[,] matrix2)
+        public int[] GetMultiplicationMatrixTransp(int[] matrix1, int[,] matrix2)
         {
-            int[] result = new int[matrix2.GetLength(1)];
+            int[] result = new int[matrix2.GetLength(0)];
 
-            for (int i = 0; i < matrix1.Length; i++)
+            for (int i = 0; i < matrix2.GetLength(0); i++)
             {
                 int res = 0;
-                for (int j = 0; j < matrix1.GetLength(0); j++)
+                for (int j = 0; j < matrix2.GetLength(1); j++)
                 {
-                    res += matrix1[i] & matrix2[j, i];
+                    res += matrix1[j] & matrix2[i, j];
                 }
                 if (res % 2 == 0) result[i] = 0;
                 if (res % 2 == 1) result[i] = 1;

@@ -17,8 +17,8 @@ namespace lab2.ViewModel
         private ObservableCollection<FirstTable> _firstTables = new ObservableCollection<FirstTable>();
         public ObservableCollection<FirstTable> FirstTables { get => _firstTables; set => Set(ref _firstTables, value); }
 
-        private ObservableCollection<FirstTable> _secondTable = new ObservableCollection<FirstTable>();
-        public ObservableCollection<FirstTable> SecondTables { get => _secondTable; set => Set(ref _secondTable, value); }
+        private ObservableCollection<SecondTable> _secondTable = new ObservableCollection<SecondTable>();
+        public ObservableCollection<SecondTable> SecondTables { get => _secondTable; set => Set(ref _secondTable, value); }
 
         private string _strText;
         public string StrText
@@ -94,7 +94,45 @@ namespace lab2.ViewModel
 
         private void AddValueInSecondTable()
         {
+            GenerateSecondTables();
+            SetSindrom();
+        }
 
+        private void GenerateSecondTables()
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                SecondTables.Add(new SecondTable());
+            }
+        }
+
+        private void SetSindrom()
+        {
+            Sindrom sindrom = new Sindrom();
+            ParsingArray parsingArray = new ParsingArray(binaryRepresentation);
+
+            List<int[]> all7Bit = new List<int[]>();
+            all7Bit.Add(Get7Bit(parsingArray.FirstArray));
+            all7Bit.Add(Get7Bit(parsingArray.SecondArray));
+            all7Bit.Add(Get7Bit(parsingArray.ThirdArray));
+            all7Bit.Add(Get7Bit(parsingArray.FourthArray));
+
+            List<int[]> allSindrom = new List<int[]>();
+            for (int i = 0; i < SecondTables.Count; i++)
+            {
+                var selected7Bit = Get7Bit(all7Bit[i]);
+
+                SecondTables[i].Sindrom = sindrom.GetSindrom(selected7Bit);
+            }
+            int a = 0;
+        }
+
+        private int[] Get7Bit(int[] myArray)
+        {
+            MultiplyMatrix multiplyMatrix = new MultiplyMatrix();
+            MatrixG4x7 matrixG4X7 = new MatrixG4x7();
+
+            return multiplyMatrix.GetMultiplicationMatrix(myArray, matrixG4X7.MatrixG);
         }
 
         #endregion
