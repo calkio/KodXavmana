@@ -61,13 +61,17 @@
             <TabItem Header="Второе окно">
                 <StackPanel>
                     <DataGrid Grid.Column="1"
-                          Margin="10"
-                          IsReadOnly="True">
+                              Margin="10"
+                              AutoGenerateColumns="False"
+                              ItemsSource="{Binding SecondTables}">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Полученная кодовая комбинация" Binding="{Binding Path=Number}"/>
-                            <DataGridTextColumn Header="S доп" Binding="{Binding Path=Number}"/>
-                            <DataGridTextColumn Header="Синдром" Binding="{Binding Path=Number}"/>
-                            <DataGridTextColumn Header="Исправление ошибки" Binding="{Binding Path=Number}"/>
+                            <DataGridTextColumn Header="Информативные биты" Binding="{Binding InformativeBits}"/>
+                            <DataGridTextColumn Header="Проверочные биты" Binding="{Binding ParityBits}"/>
+                            <DataGridTextColumn Header="бит четности" Binding="{Binding ParityBit}"/>
+                            <DataGridTextColumn Header="S доп" Binding="{Binding Path=SDop}"/>
+                            <DataGridTextColumn Header="Синдром" Binding="{Binding Path=Sindrom}"/>
+                            <DataGridTextColumn Header="Позиция ошибки" Binding="{Binding Path=PositionError}"/>
+                            <DataGridTextColumn Header="Исправление ошибки" Binding="{Binding Path=BugFix}"/>
                         </DataGrid.Columns>
                     </DataGrid>
 

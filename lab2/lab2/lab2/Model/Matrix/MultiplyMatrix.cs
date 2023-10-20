@@ -10,7 +10,7 @@ namespace lab2.Model.Matrix
     {
         public int[] GetMultiplicationMatrix(int[] matrix1, int[,] matrix2)
         {
-            int[] result = new int[matrix2.GetLength(0)];
+            int[] result = new int[matrix2.GetLength(1)];
 
             for (int i = 0; i < matrix2.GetLength(1); i++)
             {

@@ -96,6 +96,7 @@ namespace lab2.ViewModel
         {
             GenerateSecondTables();
             SetSindrom();
+            SetParams();
         }
 
         private void GenerateSecondTables()
@@ -108,7 +109,6 @@ namespace lab2.ViewModel
 
         private void SetSindrom()
         {
-            Sindrom sindrom = new Sindrom();
             ParsingArray parsingArray = new ParsingArray(binaryRepresentation);
 
             List<int[]> all7Bit = new List<int[]>();
@@ -120,11 +120,10 @@ namespace lab2.ViewModel
             List<int[]> allSindrom = new List<int[]>();
             for (int i = 0; i < SecondTables.Count; i++)
             {
-                var selected7Bit = Get7Bit(all7Bit[i]);
+                var selectedSindrom = MultiplyTransp(all7Bit[i]);
 
-                SecondTables[i].Sindrom = sindrom.GetSindrom(selected7Bit);
+                SecondTables[i].Sindrom = string.Join("", selectedSindrom); 
             }
-            int a = 0;
         }
 
         private int[] Get7Bit(int[] myArray)
@@ -133,6 +132,38 @@ namespace lab2.ViewModel
             MatrixG4x7 matrixG4X7 = new MatrixG4x7();
 
             return multiplyMatrix.GetMultiplicationMatrix(myArray, matrixG4X7.MatrixG);
+        }
+
+        private int[] MultiplyTransp(int[] myArray)
+        {
+            MultiplyMatrix multiplyMatrix = new MultiplyMatrix();
+            MatrixH3x7 matrixH3X7 = new MatrixH3x7();
+
+            return multiplyMatrix.GetMultiplicationMatrixTransp(myArray, matrixH3X7.MatrixH);
+        }
+
+        private void SetParams()
+        {
+            ParsingArray parsingArray = new ParsingArray(binaryRepresentation);
+
+            List<int[]> all7Bit = new List<int[]>();
+            all7Bit.Add(Get7Bit(parsingArray.FirstArray));
+            all7Bit.Add(Get7Bit(parsingArray.SecondArray));
+            all7Bit.Add(Get7Bit(parsingArray.ThirdArray));
+            all7Bit.Add(Get7Bit(parsingArray.FourthArray));
+
+            for (int i = 0; i < all7Bit.Count; i++)
+            {
+                int[] informativeBits = new int[4]; // Первые 4 бита как информативные биты
+                int[] parityBits = new int[3]; // Последние 3 бита как проверочные биты
+
+                Array.Copy(all7Bit[i], 0, informativeBits, 0, 4);
+                Array.Copy(all7Bit[i], 4, parityBits, 0, 3);
+
+                SecondTables[i].InformativeBits = string.Join("", informativeBits);
+                SecondTables[i].ParityBits = string.Join("", parityBits);
+                SecondTables[i].ParityBit = GetParityBit(all7Bit[i]); 
+            }
         }
 
         #endregion

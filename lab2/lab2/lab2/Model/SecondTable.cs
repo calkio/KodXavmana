@@ -16,10 +16,10 @@ namespace lab2.Model
 
         public int SDop { get; set; }
 
-        public int[] Sindrom { get; set; }
+        public string Sindrom { get; set; }
 
-        public int PositionError { get; set; }
+        public string PositionError { get; set; }
 
-        public int BugFix { get; set; }
+        public string BugFix { get; set; }
     }
 }
