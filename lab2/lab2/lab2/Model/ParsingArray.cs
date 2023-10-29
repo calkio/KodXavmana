@@ -8,10 +8,10 @@ namespace lab2.Model
 {
     internal class ParsingArray
     {
-        public int[] FirstArray;
-        public int[] SecondArray;
-        public int[] ThirdArray;
-        public int[] FourthArray;
+        public int[] FirstArray4Bit;
+        public int[] SecondArray4Bit;
+        public int[] ThirdArray4Bit;
+        public int[] FourthArray4Bit;
 
 
         public ParsingArray(int[] inputArray)
@@ -33,10 +33,10 @@ namespace lab2.Model
 
         private void InitArray(int[][] subArray)
         {
-            FirstArray = subArray[0];
-            SecondArray = subArray[1];
-            ThirdArray = subArray[2];
-            FourthArray = subArray[3];
+            FirstArray4Bit = subArray[0];
+            SecondArray4Bit = subArray[1];
+            ThirdArray4Bit = subArray[2];
+            FourthArray4Bit = subArray[3];
         }
     }
 }

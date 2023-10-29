@@ -1,0 +1,91 @@
+﻿<Window x:Class="Hemchik.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Hemchik"
+        xmlns:cmd="clr-namespace:Hemchik.Commands"
+        xmlns:vm="clr-namespace:Hemchik.ViewModels"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="800" Width="600">
+    <Window.DataContext>
+        <vm:MainWindowViewModel/>
+    </Window.DataContext>
+    <Window.Resources>
+        <cmd:EnterClick x:Key="EnterClick"/>
+    </Window.Resources>
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition />
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="40*"/>
+                    <ColumnDefinition Width="60*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel>
+                    <Label Margin="10,10,0,10" Content="Исходное сообщение" HorizontalAlignment="Left"/>
+                    <TextBox Name="Input" Margin="10,0,10,10" Text="{Binding inputMessage}" KeyDown="stringLine_KeyDown"/>
+                    <Button Content="Выполнить" Width="150"  Margin="5" Click="Button_Click"/>
+                </StackPanel>
+            </Grid>
+
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                <Grid Grid.Row="1">
+                    <DataGrid CellEditEnding="myDG_CellEditEnding" Margin="10, 0, 10, 0" Name="DG" AutoGenerateColumns="False" CanUserAddRows="False">
+                        <DataGrid.Columns>
+
+                            <DataGridTextColumn Binding="{Binding Path=fourBit}"  MinWidth="80">
+                                <DataGridTextColumn.Header>
+                                    <DataGridColumnHeader Content="Информативные биты" HorizontalAlignment="Center"/>
+                                </DataGridTextColumn.Header>
+                            </DataGridTextColumn>
+
+                            <DataGridTextColumn Binding="{Binding Path=eightBit}" MinWidth="80">
+                                <DataGridTextColumn.Header>
+                                    <DataGridColumnHeader Content="Проверочные биты" HorizontalAlignment="Center"/>
+                                </DataGridTextColumn.Header>
+                            </DataGridTextColumn>
+
+                            <DataGridTextColumn Binding="{Binding Path=partityBit}" MinWidth="80">
+                                <DataGridTextColumn.Header>
+                                    <DataGridColumnHeader Content="бит четности" HorizontalAlignment="Center"/>
+                                </DataGridTextColumn.Header>
+                            </DataGridTextColumn>
+
+                            <DataGridTextColumn Binding="{Binding Path=syndrome}"  MinWidth="80">
+                                <DataGridTextColumn.Header>
+                                    <DataGridColumnHeader Content="синдром" HorizontalAlignment="Center"/>
+                                </DataGridTextColumn.Header>
+                            </DataGridTextColumn>
+
+                            <DataGridTextColumn Binding="{Binding Path=complited}"  MinWidth="80">
+                                <DataGridTextColumn.Header>
+                                    <DataGridColumnHeader Content="ошибка" HorizontalAlignment="Center"/>
+                                </DataGridTextColumn.Header>
+                            </DataGridTextColumn>
+
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </ScrollViewer>
+
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="40*"/>
+                    <ColumnDefinition Width="60*"/>
+                </Grid.ColumnDefinitions>
+                
+                <StackPanel>
+                    <Label Margin="10,10,0,10" Content="Граница Хэмминга" HorizontalAlignment="Left"/>
+                    <TextBox Name="Output" IsReadOnly="True"  Margin="10,0,10,20" Text="{Binding outputMessage}"/>
+                </StackPanel>
+            </Grid>
+            
+        </Grid>
+    </Grid>
+</Window>

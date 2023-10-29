@@ -34,6 +34,8 @@ namespace lab2.ViewModel
                 ConvertStringToByte convertStringToByte = new ConvertStringToByte();
                 binaryRepresentation = convertStringToByte.GetConvertTextToByte(_strText);
 
+                _7Bit _7Bit = new _7Bit(binaryRepresentation);
+
                 AddValueInFirstTabel();
                 AddValueInSecondTable();
             }
@@ -50,10 +52,10 @@ namespace lab2.ViewModel
 
 
             FirstTables.Clear();
-            FirstTables.Add(CreateFirstTable(multiplyMatrix.GetMultiplicationMatrix(parsingArray.FirstArray, matrixG4X7.MatrixG)));
-            FirstTables.Add(CreateFirstTable(multiplyMatrix.GetMultiplicationMatrix(parsingArray.SecondArray, matrixG4X7.MatrixG)));
-            FirstTables.Add(CreateFirstTable(multiplyMatrix.GetMultiplicationMatrix(parsingArray.ThirdArray, matrixG4X7.MatrixG)));
-            FirstTables.Add(CreateFirstTable(multiplyMatrix.GetMultiplicationMatrix(parsingArray.FourthArray, matrixG4X7.MatrixG)));
+            FirstTables.Add(CreateFirstTable(multiplyMatrix.GetMultiplicationMatrix(parsingArray.FirstArray4Bit, matrixG4X7.MatrixG)));
+            FirstTables.Add(CreateFirstTable(multiplyMatrix.GetMultiplicationMatrix(parsingArray.SecondArray4Bit, matrixG4X7.MatrixG)));
+            FirstTables.Add(CreateFirstTable(multiplyMatrix.GetMultiplicationMatrix(parsingArray.ThirdArray4Bit, matrixG4X7.MatrixG)));
+            FirstTables.Add(CreateFirstTable(multiplyMatrix.GetMultiplicationMatrix(parsingArray.FourthArray4Bit, matrixG4X7.MatrixG)));
         }
 
         private FirstTable CreateFirstTable(int[] myArray)
@@ -112,10 +114,10 @@ namespace lab2.ViewModel
             ParsingArray parsingArray = new ParsingArray(binaryRepresentation);
 
             List<int[]> all7Bit = new List<int[]>();
-            all7Bit.Add(Get7Bit(parsingArray.FirstArray));
-            all7Bit.Add(Get7Bit(parsingArray.SecondArray));
-            all7Bit.Add(Get7Bit(parsingArray.ThirdArray));
-            all7Bit.Add(Get7Bit(parsingArray.FourthArray));
+            all7Bit.Add(Get7Bit(parsingArray.FirstArray4Bit));
+            all7Bit.Add(Get7Bit(parsingArray.SecondArray4Bit));
+            all7Bit.Add(Get7Bit(parsingArray.ThirdArray4Bit));
+            all7Bit.Add(Get7Bit(parsingArray.FourthArray4Bit));
 
             List<int[]> allSindrom = new List<int[]>();
             for (int i = 0; i < SecondTables.Count; i++)
@@ -147,10 +149,10 @@ namespace lab2.ViewModel
             ParsingArray parsingArray = new ParsingArray(binaryRepresentation);
 
             List<int[]> all7Bit = new List<int[]>();
-            all7Bit.Add(Get7Bit(parsingArray.FirstArray));
-            all7Bit.Add(Get7Bit(parsingArray.SecondArray));
-            all7Bit.Add(Get7Bit(parsingArray.ThirdArray));
-            all7Bit.Add(Get7Bit(parsingArray.FourthArray));
+            all7Bit.Add(Get7Bit(parsingArray.FirstArray4Bit));
+            all7Bit.Add(Get7Bit(parsingArray.SecondArray4Bit));
+            all7Bit.Add(Get7Bit(parsingArray.ThirdArray4Bit));
+            all7Bit.Add(Get7Bit(parsingArray.FourthArray4Bit));
 
             for (int i = 0; i < all7Bit.Count; i++)
             {
