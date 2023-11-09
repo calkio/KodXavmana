@@ -10,11 +10,10 @@ namespace lab3.Model
     {
         private List<int> single = new List<int>()
         {
-            1,0,0,0,   0,0,0/*,0,   0,0,0,0,   0,0,0,0,   0,0,0,0,   0,0,0,0,   0,0,0,0,   0,0,0,0,   0,0,0,0,   0,0,0,0,   0,0,0,0,   0,0,0,0,   0,0,0,0,   0,0,0,0,   0,0,0,0,   0,0,0*/
+            1,0,0,0,   0,0,0,0,   0,0,0,0,   0,0,0,0,   0,0,0,0,   0,0,0,0,   0,0,0,0,   0,0,0,0,   0,0,0,0,   0,0,0,0,   0,0,0,0,   0,0,0,0,   0,0,0,0,   0,0,0,0,   0,0,0,0,   0,0,0
         };
-
         private List<int> rx = new List<int>();
-
+        private int[] ErrortTextCopy = new int[63];
 
 
         public int GetIndexError(string errorText, List<int> gX)
@@ -23,26 +22,59 @@ namespace lab3.Model
 
             List<int> errorTextList = ConvertStringList(errorText); // Переводим из строки в лист чисел
             List<int> check = new();
-            List<int> ErrortTextCopy = CreateCopy(errorTextList);
+            GenerateArray(errorTextList);
             bool isCoincided = false;
             int index = 0;
             do
             {
                 check = CycleXor(errorTextList, gX);
 
-                if (check == rX) isCoincided = true;
+                if (IsCoincided(check, rX)) isCoincided = true;
                 else
                 {
                     index++;
-                    errorTextList = ErrortTextCopy;
+                    errorTextList = GenerateList(ErrortTextCopy);
+                    for (int i = 0; i < index; i++)
+                    {
+                        errorTextList.Add(0);
+                    }
                 }
 
             } while (!isCoincided); 
 
-            return index;
+            return index + 1;
         }
 
 
+        private void GenerateArray(List<int> errorTextList)
+        {
+            for (int i = 0; i < errorTextList.Count; i++)
+            {
+                ErrortTextCopy[i] = errorTextList[i];
+            }
+        }
+
+        private List<int> GenerateList(int[] errorTextArray)
+        {
+            List<int> result = new List<int>();
+            for (int i = 0; i < errorTextArray.Length; i++)
+            {
+                result.Add(errorTextArray[i]);
+            }
+            return result;
+        }
+
+
+        private bool IsCoincided(List<int> check, List<int> rX)
+        {
+            if (check.Count != rX.Count) return false;
+            for (int i = 0; i < check.Count; i++)
+            {
+                if (check[i] != rX[i]) return false;
+            }
+
+            return true;
+        }
 
         private List<int> ConvertStringList(string inputText)
         {

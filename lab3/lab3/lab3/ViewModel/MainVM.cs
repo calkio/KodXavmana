@@ -42,21 +42,7 @@ namespace lab3.ViewModel
         }
 
         private string _errorText;
-        public string ErrorText
-        {
-            get
-            {
-                return _errorText;
-            }
-            set
-            {
-                Set(ref _errorText, value);
-
-                _errorText = "1111001";
-                ErrorCode errorCode = new ErrorCode();
-                int a = errorCode.GetIndexError(_errorText, _gX);
-            }
-        }
+        public string ErrorText { get => _errorText; set => Set(ref _errorText, value); }
 
         private int _countInputText;
         public int CountInputText { get => _countInputText; set => Set(ref _countInputText, value); }
@@ -64,11 +50,13 @@ namespace lab3.ViewModel
         private int _countErrorText;
         public int CountErrorText { get => _countErrorText; set => Set(ref _countErrorText, value); }
 
+        private int _indexError;
+        public int IndexError { get => _indexError; set => Set(ref _indexError, value); }
+
 
         private List<int> _gX = new List<int>()
         {
-            //1,0,0,0,  0,1,1,0,  1,1,1,0,  1,0,0,0,  0,0,0,1,  0,0,0,1,  0,0,1,1,
-            1,0,1,1
+            1,0,0,0,  0,1,1,0,  1,1,1,0,  1,0,0,0,  0,0,0,1,  0,0,0,1,  0,0,1,1,
         };
 
 
@@ -77,7 +65,7 @@ namespace lab3.ViewModel
 
         private bool CanCodeCombinationCommand(object p)
         {
-            if (CountInputText == 4)
+            if (CountInputText == 36)
             {
                 return true;
             }
@@ -97,10 +85,22 @@ namespace lab3.ViewModel
         }
 
 
+        public ICommand GetIndexErrorCommand { get; }
+
+        private bool CanIndexErrorCommand(object p) => true;
+
+        private void OnIndexErrorCommand(object p)
+        {
+            ErrorCode errorCode = new ErrorCode();
+            IndexError = errorCode.GetIndexError(_errorText, _gX);
+        }
+
+
 
         public MainVM()
         {
             GetCodeCombinationCommand = new LambdaCommand(OnCodeCombinationCommand, CanCodeCombinationCommand);
+            GetIndexErrorCommand = new LambdaCommand(OnIndexErrorCommand, CanIndexErrorCommand);
         }
     }
 }

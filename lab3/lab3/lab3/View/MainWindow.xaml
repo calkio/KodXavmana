@@ -48,7 +48,7 @@
                    FontSize="18"
                    Margin="10"/>
             <StackPanel Orientation="Horizontal">
-                <TextBox Text="{Binding ErrorText}"
+                <TextBox Text="{Binding ErrorText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                      FontSize="18"
                      Width="320"
                      Margin="10"
@@ -58,6 +58,17 @@
                        FontSize="18"
                        Margin="10"/>
             </StackPanel>
+            <Label Content="Индекс ошибки:"
+                   FontSize="18"
+                   Margin="10"/>
+            <TextBox Text="{Binding IndexError}"
+                     FontSize="18"
+                     Margin="10"/>
+            <Button Height="Auto" Width="200" 
+                    Content="Рассчитать"
+                    FontSize="18"
+                    Margin="10"
+                    Command="{Binding GetIndexErrorCommand}"/>
         </StackPanel>
     </Grid>
 </Window>
