@@ -22,23 +22,53 @@ namespace lab3.ViewModel
             {
                 Set(ref _inputText, value);
 
-                Count = _inputText.Length;
+                CountInputText = _inputText.Length;
             }
         }
 
         private string _codeCombination;
-        public string CodeCombination { get => _codeCombination; set => Set(ref _codeCombination, value); }
+        public string CodeCombination
+        {
+            get
+            {
+                return _codeCombination;
+            }
+            set
+            {
+                Set(ref _codeCombination, value);
+
+                CountErrorText = _codeCombination.Length;
+            }
+        }
 
         private string _errorText;
-        public string ErrorText { get => _errorText; set => Set(ref _errorText, value); }
+        public string ErrorText
+        {
+            get
+            {
+                return _errorText;
+            }
+            set
+            {
+                Set(ref _errorText, value);
 
-        private int _count;
-        public int Count { get => _count; set => Set(ref _count, value); }
+                _errorText = "1111001";
+                ErrorCode errorCode = new ErrorCode();
+                int a = errorCode.GetIndexError(_errorText, _gX);
+            }
+        }
+
+        private int _countInputText;
+        public int CountInputText { get => _countInputText; set => Set(ref _countInputText, value); }
+
+        private int _countErrorText;
+        public int CountErrorText { get => _countErrorText; set => Set(ref _countErrorText, value); }
 
 
         private List<int> _gX = new List<int>()
         {
-            1,0,0,0,  0,1,1,0,  1,1,1,0,  1,0,0,0,  0,0,0,1,  0,0,0,1,  0,0,1,1,
+            //1,0,0,0,  0,1,1,0,  1,1,1,0,  1,0,0,0,  0,0,0,1,  0,0,0,1,  0,0,1,1,
+            1,0,1,1
         };
 
 
@@ -47,7 +77,7 @@ namespace lab3.ViewModel
 
         private bool CanCodeCombinationCommand(object p)
         {
-            if (Count == 36)
+            if (CountInputText == 4)
             {
                 return true;
             }

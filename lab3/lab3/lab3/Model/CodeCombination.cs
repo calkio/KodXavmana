@@ -36,7 +36,7 @@ namespace lab3.Model
 
         private List<int> ShiftLeft(List<int> inputText)
         {
-            for (int i = 0; i < 27; i++) inputText.Add(0);
+            for (int i = 0; i < 3; i++) inputText.Add(0);
 
             return inputText;
         }
@@ -68,7 +68,15 @@ namespace lab3.Model
                         break;
                 }
             }
-            shiftInputText.RemoveAt(0); // Удаление первого бита, потому что мы понижаем степень
+            for (int i = 0, j = 0; i < shiftInputText.Count; i++) // Удаление первого бита, потому что мы понижаем степень
+            {
+                if (shiftInputText[i - j] == 0)
+                {
+                    shiftInputText.RemoveAt(i - j);
+                    j++;
+                }
+                else break;
+            }
 
             return shiftInputText;
         }

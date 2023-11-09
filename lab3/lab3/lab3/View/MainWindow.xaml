@@ -26,7 +26,7 @@
                          Width="320"
                          Margin="10"
                          TextWrapping="Wrap"/>
-                <Label Content="{Binding Count}"
+                <Label Content="{Binding CountInputText}"
                        HorizontalAlignment="Center"
                        FontSize="18"
                        Margin="10"/>
@@ -47,9 +47,17 @@
             <Label Content="Введите ошибку:"
                    FontSize="18"
                    Margin="10"/>
-            <TextBox Text="{Binding ErrorText}"
+            <StackPanel Orientation="Horizontal">
+                <TextBox Text="{Binding ErrorText}"
                      FontSize="18"
-                     Margin="10"/>
+                     Width="320"
+                     Margin="10"
+                     TextWrapping="Wrap"/>
+                <Label Content="{Binding CountErrorText}"
+                       HorizontalAlignment="Center"
+                       FontSize="18"
+                       Margin="10"/>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </Window>
