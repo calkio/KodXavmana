@@ -17,16 +17,39 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel>
-            <Label Content="Введите текст:"/>
-            <TextBox Text="{Binding InputText}"/>
-            <Label Content="Кодовая комбинация:"/>
-            <TextBox Text="{Binding CodeCombination}"/>
-            <Button Height="20" 
+            <Label Content="Введите текст:"
+                   FontSize="18"
+                   Margin="10"/>
+            <StackPanel Orientation="Horizontal">
+                <TextBox Text="{Binding InputText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                         FontSize="18"
+                         Width="320"
+                         Margin="10"
+                         TextWrapping="Wrap"/>
+                <Label Content="{Binding Count}"
+                       HorizontalAlignment="Center"
+                       FontSize="18"
+                       Margin="10"/>
+            </StackPanel>
+            <Label Content="Кодовая комбинация:"
+                   FontSize="18"
+                   Margin="10"/>
+            <TextBox Text="{Binding CodeCombination}"
+                     FontSize="18"
+                     Margin="10"/>
+            <Button Height="Auto" Width="200" 
+                    Content="Рассчитать"
+                    FontSize="18"
+                    Margin="10"
                     Command="{Binding GetCodeCombinationCommand}"/>
         </StackPanel>
         <StackPanel Grid.Column="1">
-            <Label Content="Введите ошибку:"/>
-            <TextBox Text="{Binding ErrorText}"/>
+            <Label Content="Введите ошибку:"
+                   FontSize="18"
+                   Margin="10"/>
+            <TextBox Text="{Binding ErrorText}"
+                     FontSize="18"
+                     Margin="10"/>
         </StackPanel>
     </Grid>
 </Window>

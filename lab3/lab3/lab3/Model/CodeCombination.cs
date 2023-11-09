@@ -36,7 +36,7 @@ namespace lab3.Model
 
         private List<int> ShiftLeft(List<int> inputText)
         {
-            for (int i = 0; i < 3; i++) inputText.Add(0);
+            for (int i = 0; i < 27; i++) inputText.Add(0);
 
             return inputText;
         }
