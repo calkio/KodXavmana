@@ -9,17 +9,36 @@ namespace lab3.Model
 {
     internal class CodeCombination
     {
-        public List<int> GetCodeCombination(List<int> inputText, List<int> gx)
+        public List<int> GetCodeCombination(string inputText, List<int> gx)
         {
-            List<int> shiftLeft = ShiftLeft(inputText);
-            List<int> inputTextCopy = CreateCopy(inputText);
+            List<int> inputTextList = ConvertStringList(inputText); // Переводим из строки в лист чисел
+            List<int> shiftLeft = ShiftLeft(inputTextList); // Сдвигаем влево последоватьельность на r 
+            List<int> inputTextCopy = CreateCopy(shiftLeft); // Создаем копию shiftLeft, потому что лист - ссылочный тип данных и он меняется, а shiftLeft еще будет нужна
             List<int> xorWithGX = new();
             do
             {
                 xorWithGX = XorWithGX(shiftLeft, gx);
-            } while (xorWithGX.Count >= gx.Count);
+            } while (xorWithGX.Count >= gx.Count); // Ксорим пока значение не станет короче полинома
 
-            return CalculateCodeCombination(inputTextCopy, xorWithGX);
+            return CalculateCodeCombination(inputTextCopy, xorWithGX); // Добавлем к shiftLeft наше поксоренное значение
+        }
+
+        private List<int> ConvertStringList(string inputText)
+        {
+            List<int> result = new List<int>();
+            foreach (var item in inputText)
+            {
+                result.Add((int)Char.GetNumericValue(item));
+            }
+
+            return result;
+        }
+
+        private List<int> ShiftLeft(List<int> inputText)
+        {
+            for (int i = 0; i < 3; i++) inputText.Add(0);
+
+            return inputText;
         }
 
         private List<int> CreateCopy(List<int> inputText)
@@ -30,13 +49,6 @@ namespace lab3.Model
                 result.Add(i);
             }
             return result;
-        }
-
-        private List<int> ShiftLeft(List<int> inputText)
-        {
-            for (int i = 0; i < 3; i++) inputText.Add(0);
-
-            return inputText;
         }
 
         private List<int> XorWithGX(List<int> shiftInputText, List<int> gx)

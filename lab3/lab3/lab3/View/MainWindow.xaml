@@ -19,8 +19,8 @@
         <StackPanel>
             <Label Content="Введите текст:"/>
             <TextBox Text="{Binding InputText}"/>
-            <Label Content="G(x):"/>
-            <TextBox Text="qwe"/>
+            <Label Content="Кодовая комбинация:"/>
+            <TextBox Text="{Binding CodeCombination}"/>
             <Button Height="20" 
                     Command="{Binding GetCodeCombinationCommand}"/>
         </StackPanel>

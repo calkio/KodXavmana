@@ -14,8 +14,12 @@ namespace lab3.ViewModel
         private string _inputText;
         public string InputText { get => _inputText; set => Set(ref _inputText, value); }
 
+        private string _codeCombination;
+        public string CodeCombination { get => _errorText; set => Set(ref _errorText, value); }
+
         private string _errorText;
         public string ErrorText { get => _errorText; set => Set(ref _errorText, value); }
+
 
 
         private List<int> _gX = new List<int>()
@@ -37,12 +41,12 @@ namespace lab3.ViewModel
         private void OnCodeCombinationCommand(object p)
         {
             CodeCombination codeCombination = new CodeCombination();
-            List<int> qwe = new List<int>();
-            foreach (var item in _inputText)
+            List<int> codeCombinationList = codeCombination.GetCodeCombination(_inputText, _gX);
+            CodeCombination = "";
+            foreach (var value in codeCombinationList) // Переводим из листа чисел в строку
             {
-                qwe.Add((int)Char.GetNumericValue(item));
+                CodeCombination += value.ToString();
             }
-            List<int> a = codeCombination.GetCodeCombination(qwe, _gX);
         }
 
 
