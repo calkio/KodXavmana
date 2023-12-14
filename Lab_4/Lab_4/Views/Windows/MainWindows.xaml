@@ -1,0 +1,87 @@
+﻿<Window x:Class="Lab_4.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" mc:Ignorable="d"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm ="clr-namespace:SearchSpring.ViewModels"
+        xmlns:cmd ="clr-namespace:SearchSpring.Infrastructure.Commands"
+        xmlns:local="clr-namespace:Lab_4"
+        Title="{Binding Title}" Height="450" Width="800">
+    <Window.DataContext>
+        <vm:MainWindowViewModel/>
+    </Window.DataContext>
+    <Grid>
+        <Grid Margin="10,10,10,10">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="8*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            
+            <StackPanel  Grid.Column="0" Margin="5,5,5,5" Grid.ColumnSpan="3">
+                <Label Content="Введите текст" HorizontalContentAlignment="Left" />
+                <TextBox Name="stringLine" TextChanged="stringLine_TextChanged" HorizontalContentAlignment="Left" KeyDown="stringLine_KeyDown"/>
+            </StackPanel>
+           
+            <Grid Grid.Row ="1" Grid.Column="0" Margin="5,5,5,5">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="2*"/>
+                </Grid.RowDefinitions>
+
+                <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto" Margin="10">
+                    <StackPanel  Grid.Column="0" Margin="5,5,5,5">
+                        <Label Content="Ансамбль сообщения" HorizontalAlignment="left"/>
+                        <DataGrid Name="dgDic" AutoGenerateColumns="False" CanUserAddRows="False" HorizontalAlignment="Left"
+                           IsReadOnly="False" >
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Символ" Binding="{Binding Key}"/>
+                                <DataGridTextColumn Header="Вероятность" Binding="{Binding Value}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+                </ScrollViewer>
+
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="10">
+                    <StackPanel  Margin="5,5,5,5">
+                        <Label Content="Средняя информация" HorizontalAlignment="left"/>
+                        <DataGrid Name="dgEntropy" AutoGenerateColumns="False" CanUserAddRows="False" HorizontalAlignment="Left"
+                           IsReadOnly="False" >
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Символ" Binding="{Binding Key}"/>
+                                <DataGridTextColumn Header="Частная энтропия" Binding="{Binding Value}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+                </ScrollViewer>
+
+            </Grid>
+
+            <ScrollViewer Grid.Row="1" Grid.Column="2"  VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="10">
+                <StackPanel  Grid.Row ="1" Grid.Column="2" Margin="5,5,5,5" CanVerticallyScroll="True">
+                    <Label Content="Канальная матрица" HorizontalAlignment="Center"/>
+                    <DataGrid Name="channelMatrix" LoadingRow="DgMatrix_LoadingRow" AutoGenerateColumns="False" CanUserAddRows="False" 
+                              HorizontalAlignment="Center"
+                           IsReadOnly="False">
+                        
+                    </DataGrid>
+                </StackPanel>
+            </ScrollViewer>
+
+            <StackPanel  Grid.Row ="1" Grid.Column="1" Margin="5,5,5,5">
+                <Label Content="Безусловная энтропия" HorizontalAlignment="left"/>
+                <TextBox Name="BE" HorizontalContentAlignment="Left" IsReadOnly="True"/>
+                <Label Content="Средняя условная энтропия" HorizontalAlignment="left"  Margin="0,35,0,0"/>
+                <TextBox Name="AverageConditionalEntropy" HorizontalContentAlignment="Left" IsReadOnly="True"/>
+                <Button Content="Выполнить" Margin="20, 60, 20, 5" Click="Button_Click"/>
+            </StackPanel>
+
+        </Grid>
+    </Grid>
+</Window>
