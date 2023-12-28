@@ -70,6 +70,10 @@ namespace KodXavmana.ViewModel
             Redundancy = huffman.Redundancy.ToString();
 
             TableLetter = string.Join(Environment.NewLine, dict.Select(kv => $"{kv.Key} - {Math.Round(kv.Value, 2)}"));
+
+            Hemchik.MainWindow mw = new Hemchik.MainWindow(_inputText);
+            mw.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            mw.ShowDialog();
         } 
 
         #endregion

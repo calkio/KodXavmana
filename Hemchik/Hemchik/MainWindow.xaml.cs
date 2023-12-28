@@ -24,9 +24,10 @@ namespace Hemchik
     {
         ObservableCollection<table> _table = new();
 
-        public MainWindow()
+        public MainWindow(string text)
         {
             InitializeComponent();
+            Input.Text = text;
             DG.ItemsSource = _table;
         }
 

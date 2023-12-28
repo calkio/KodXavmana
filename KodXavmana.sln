@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33723.286
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KodXavmana", "KodXavmana\KodXavmana.csproj", "{1E67D130-C9D4-4419-9927-66A841EE0B9D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KodXavmana", "KodXavmana\KodXavmana.csproj", "{1E67D130-C9D4-4419-9927-66A841EE0B9D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hemchik", "Hemchik\Hemchik\Hemchik.csproj", "{0CD8A0A3-4674-4F2D-8881-E61AA9F14FCC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{1E67D130-C9D4-4419-9927-66A841EE0B9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1E67D130-C9D4-4419-9927-66A841EE0B9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1E67D130-C9D4-4419-9927-66A841EE0B9D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0CD8A0A3-4674-4F2D-8881-E61AA9F14FCC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0CD8A0A3-4674-4F2D-8881-E61AA9F14FCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0CD8A0A3-4674-4F2D-8881-E61AA9F14FCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0CD8A0A3-4674-4F2D-8881-E61AA9F14FCC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

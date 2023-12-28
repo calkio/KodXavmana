@@ -37,7 +37,22 @@ namespace KodXavmana.model
                 frequencyTable[kvp.Key] = probability;
             }
 
-            return frequencyTable;
+            var result = frequencyTable.OrderByDescending(kv => kv.Value)
+                                       .ToDictionary(kv => kv.Key, kv => kv.Value);
+
+            //Dictionary<char, double> letterCounts = new Dictionary<char, double>
+            //{
+            //    {'о', 0.25 },
+            //    {'ф', 0.2 },
+            //    {'а', 0.15 },
+            //    {'т', 0.15 },
+            //    {' ', 0.1 },
+            //    {'г', 0.05 },
+            //    {'л', 0.05 },
+            //    {'р', 0.05 },
+            //};
+
+            return result;
         }
     }
 }

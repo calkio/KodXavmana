@@ -64,8 +64,6 @@ namespace KodXavmana.Model
 
             while (_nodes.Count > 1)
             {
-                _nodes.Sort((x, y) => x.Frequency.CompareTo(y.Frequency));
-
                 Node left = _nodes[0];
                 Node right = _nodes[1];
                 Node parent = new Node { Character = ' ', Frequency = left.Frequency + right.Frequency, Left = left, Right = right };
