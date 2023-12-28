@@ -130,6 +130,16 @@ namespace Hemchik.ViewModels
             }
         }
 
+        private string _cheackEightBit;
+        public string CheackEightBit
+        {
+            get => _cheackEightBit;
+            set
+            {
+                Set(ref _cheackEightBit, value);
+            }
+        }
+
         private int _partityBit;
         public int partityBit
         {
@@ -151,6 +161,7 @@ namespace Hemchik.ViewModels
             eightBit = VectorToString(vector);
             partityBit = IsBitPartity(vector);
             eightBit = partityBit.ToString() + eightBit;
+            CheackEightBit = eightBit;
             syndrome = VectorToString(SindromCalculate(eightBit));
             IsComplited();
         }
@@ -170,30 +181,109 @@ namespace Hemchik.ViewModels
             }
             else
             {
-                int[] sindrom = new int[4]
-                {0,0,0,0};
+                List<int> eightBit = ConvertBinaryStringToList(_eightBit);
 
-                for (int i = 0; i < 4; i++)
-                { 
-                    sindrom[i] = int.Parse(syndrome[i].ToString());
-                }
+                int[] sindrom = GenerateSyndrom(syndrome);
 
-                bool flag = false;
+                ObservableCollection<int> sindromCollection = new ObservableCollection<int>(sindrom);
 
-                for (int i = 0; i < 8; i++)
+
+                int countError = 0;
+                List<int> indexError = new List<int>();
+
+                for (int i = 0; i < matrixH.Count; i++)
                 {
-                    flag = true;
-                    for (int j = 0; j < 4; j++)
-                    {
-                        if (sindrom[j] != matrixH[i][j]) flag = false;
-                    }
-                    if (flag == true)
+                    if (ObservableCollectionEquals(matrixH[i], sindromCollection))
                     {
                         complited = "ошибка в " + (i + 1).ToString() + " бите";
-                        return;
+                        countError++;
+                        indexError.Add(i);
                     }
                 }
+
+
+                string strCheackEightBit = "";
+                if (countError == 0 || countError > 1)
+                {
+                    complited = "Больше 1 ошибки";
+
+                    foreach (var item in eightBit)
+                    {
+                        strCheackEightBit += item.ToString();
+                    }
+
+                    CheackEightBit = strCheackEightBit;
+
+                    return;
+                }
+                
+                foreach (int i in indexError)
+                {
+                    if (eightBit[i] == 0)
+                    {
+                        eightBit[i] = 1;
+                    }
+                    else
+                    {
+                        eightBit[i] = 0;
+                    }
+                }
+
+                foreach (var item in eightBit)
+                {
+                    strCheackEightBit += item.ToString();
+                }
+
+                CheackEightBit = strCheackEightBit;
             }
+        }
+
+        private List<int> ConvertBinaryStringToList(string binaryString)
+        {
+            List<int> binaryList = new List<int>();
+
+            foreach (char bitChar in binaryString)
+            {
+                // Преобразуем символы '0' и '1' в целые числа 0 и 1
+                int bit = bitChar == '0' ? 0 : 1;
+
+                // Добавляем в список
+                binaryList.Add(bit);
+            }
+
+            return binaryList;
+        }
+
+        private bool ObservableCollectionEquals<T>(ObservableCollection<T> collection1, ObservableCollection<T> collection2)
+        {
+            // Проверяем, что коллекции имеют одинаковую длину
+            if (collection1.Count != collection2.Count)
+            {
+                return false;
+            }
+
+            // Проверяем, что элементы коллекций равны друг другу
+            for (int i = 0; i < collection1.Count; i++)
+            {
+                if (!EqualityComparer<T>.Default.Equals(collection1[i], collection2[i]))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private int[] GenerateSyndrom(string strSyndrom)
+        {
+            int[] sindrom = new int[] { 0, 0, 0, 0 };
+
+            for (int i = 0; i < 4; i++)
+            {
+                sindrom[i] = int.Parse(strSyndrom[i].ToString());
+            }
+
+            return sindrom;
         }
     }
 }

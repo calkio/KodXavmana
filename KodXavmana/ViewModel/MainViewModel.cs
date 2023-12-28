@@ -69,9 +69,9 @@ namespace KodXavmana.ViewModel
             Hx = huffman.Hx.ToString();
             Redundancy = huffman.Redundancy.ToString();
 
-            TableLetter = string.Join(Environment.NewLine, dict.Select(kv => $"{kv.Key} - {Math.Round(kv.Value, 2)}"));
+            TableLetter = string.Join(Environment.NewLine, huffman.CodeTable.Select(kv => $"{kv.Key} - {kv.Value}"));
 
-            Hemchik.MainWindow mw = new Hemchik.MainWindow(_inputText);
+            Hemchik.MainWindow mw = new Hemchik.MainWindow(_outputText, huffman.CodeTable);
             mw.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             mw.ShowDialog();
         } 

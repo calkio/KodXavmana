@@ -41,15 +41,21 @@
 
                             <DataGridTextColumn Binding="{Binding Path=fourBit}"  MinWidth="80">
                                 <DataGridTextColumn.Header>
-                                    <DataGridColumnHeader Content="Информативные биты" HorizontalAlignment="Center"/>
+                                    <DataGridColumnHeader Content="4 бит" HorizontalAlignment="Center"/>
                                 </DataGridTextColumn.Header>
                             </DataGridTextColumn>
 
                             <DataGridTextColumn Binding="{Binding Path=eightBit}" MinWidth="80">
                                 <DataGridTextColumn.Header>
-                                    <DataGridColumnHeader Content="Проверочные биты" HorizontalAlignment="Center"/>
+                                    <DataGridColumnHeader Content="8 бит" HorizontalAlignment="Center"/>
                                 </DataGridTextColumn.Header>
                             </DataGridTextColumn>
+
+                            <!--<DataGridTextColumn Binding="{Binding Path=CheackEightBit}" MinWidth="80">
+                                <DataGridTextColumn.Header>
+                                    <DataGridColumnHeader Content="поменяные 8 бит" HorizontalAlignment="Center"/>
+                                </DataGridTextColumn.Header>
+                            </DataGridTextColumn>-->
 
                             <DataGridTextColumn Binding="{Binding Path=partityBit}" MinWidth="80">
                                 <DataGridTextColumn.Header>
@@ -75,17 +81,37 @@
             </ScrollViewer>
 
             <Grid Grid.Row="2">
+
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="40*"/>
-                    <ColumnDefinition Width="60*"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 
-                <StackPanel>
-                    <Label Margin="10,10,0,10" Content="Граница Хэмминга" HorizontalAlignment="Left"/>
-                    <TextBox Name="Output" IsReadOnly="True"  Margin="10,0,10,20" Text="{Binding outputMessage}"/>
-                </StackPanel>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="70*"/>
+                        <ColumnDefinition Width="60*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel>
+                        <Label Margin="10,10,0,10" Content="Граница Хэмминга" HorizontalAlignment="Left"/>
+                        <TextBox Name="Output" IsReadOnly="True"  Margin="10,0,10,20" Text="{Binding outputMessage}"/>
+                    </StackPanel>
+                </Grid>
+
+                <Grid Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="70*"/>
+                        <ColumnDefinition Width="60*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel>
+                        <Label Margin="10,10,0,10" Content="Декодер" HorizontalAlignment="Left"/>
+                        <TextBox Name="Decoder" IsReadOnly="True"  Margin="10,0,10,20"/>
+                    </StackPanel>
+                </Grid>
             </Grid>
-            
+
         </Grid>
     </Grid>
 </Window>

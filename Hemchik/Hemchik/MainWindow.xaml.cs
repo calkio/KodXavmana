@@ -23,10 +23,12 @@ namespace Hemchik
     public partial class MainWindow : Window
     {
         ObservableCollection<table> _table = new();
+        private Dictionary<char, string> _huffmanDictionary;
 
-        public MainWindow(string text)
+        public MainWindow(string text, Dictionary<char, string> huffmanDictionary)
         {
             InitializeComponent();
+            _huffmanDictionary = huffmanDictionary;
             Input.Text = text;
             DG.ItemsSource = _table;
         }
@@ -44,20 +46,38 @@ namespace Hemchik
             if (Input.Text.Length > 0) 
             {
                 Output.Text = "";
-                string s = Input.Text;
-                byte[] p = System.Text.Encoding.Unicode.GetBytes(s);
-                foreach (var item in p)
-                final += Convert.ToString(item, 2).PadLeft(8, '0');
-                while (final.Length > 0) 
+                final = AddZero(Input.Text);
+                Input.Text = final;
+
+                for (int i = 0; i < final.Length; i += 4)
                 {
-                    string newStringFourBit = final.Substring(0,4);
-                    table newe = new table(newStringFourBit);
+                    // Получаем подстроку из 4 символов
+                    string subString = final.Substring(i, 4);
+
+                    table newe = new table(subString);
                     _table.Add(newe);
-                    final = final.Substring(4);
                 }
-                Output.Text = "0";
+
                 DG.ItemsSource = _table;
             }
+
+            CalculeteDecoder();
+        }
+
+        private string AddZero(string text)
+        {
+            int difference = text.Length % 4;
+
+            if (difference == 0)
+            {
+                return text;
+            }
+
+            for (int i = 0; i < 4 - difference; i++)
+            {
+                text += "0";
+            }
+            return text;
         }
 
         void myDG_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
@@ -73,9 +93,6 @@ namespace Hemchik
                         int rowIndex = e.Row.GetIndex();
                         var el = e.EditingElement as TextBox;
                         _table[rowIndex].Refresh(el.Text);
-                        // rowIndex has the row index
-                        // bindingPath has the column's binding
-                        // el.Text has the new, user-entered value
                     }
 
                     int hammingBoundary = 0;
@@ -89,9 +106,27 @@ namespace Hemchik
 
                     Output.Text = hammingBoundary.ToString();
                 }
+
+                CalculeteDecoder();
             }
         }
 
+
+        private void CalculeteDecoder()
+        {
+            string encodedData = "";
+            foreach (var item in _table)
+            {
+                if (item.CheackEightBit != null)
+                {
+                    var a = item.CheackEightBit.Substring(1, 4);
+                    encodedData += item.CheackEightBit.Substring(1, 4);
+                }
+            }
+
+            HuffmanDecoder decoder = new HuffmanDecoder(_huffmanDictionary);
+            Decoder.Text = decoder.Decode(encodedData);
+        }
 
         private void stringLine_KeyDown(object sender, KeyEventArgs e)
         {
